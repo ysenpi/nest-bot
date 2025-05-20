@@ -1,0 +1,20 @@
+model User {
+  id         String   @id @default(cuid())
+  telegramId String
+  firstName  String
+  lastName   String?
+  username   String?  @unique
+  language   String?
+  image      String?
+  isPremium  Boolean  @default(false)
+  isBanned   Boolean  @default(false)
+  role       Role     @default(USER)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+enum Role {
+  ADMIN
+  MODERATOR
+  USER
+}
