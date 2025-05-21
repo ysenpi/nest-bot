@@ -6,14 +6,18 @@ export const telegramConfig: GrammyModuleAsyncOptions = {
   // imports: [ConfigModule],
   useFactory: (config: ConfigService) => ({
     token: config.getOrThrow<string>('BOT_TOKEN'),
-    launchOptions: isProd(config)
-      ? {
-          webhook: {
-            domain: config.getOrThrow<string>('BOT_WEBHOOK_DOMAIN'),
-            path: config.getOrThrow<string>('BOT_WEBHOOK_PATH')
-          }
-        }
-      : false
+    useWebhook: isProd(config),
+    launchOptions: {
+      webhook: {
+        domain: config.getOrThrow<string>('BOT_WEBHOOK_DOMAIN'),
+        path: config.getOrThrow<string>('BOT_WEBHOOK_PATH')
+      }
+    },
+    pollingOptions: {
+      onStart({ username }) {
+        console.log(`[bot] @${username} long polling mode`)
+      }
+    }
   }),
   inject: [ConfigService]
 }
