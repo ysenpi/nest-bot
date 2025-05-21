@@ -1,12 +1,12 @@
-import { ConfigService } from '@nestjs/config'
+import { ConfigModule, ConfigService } from '@nestjs/config'
 import { GrammyModuleAsyncOptions } from '@grammyjs/nestjs'
 import { isProd } from 'src/utils/is-prod.util'
 
 export const telegramConfig: GrammyModuleAsyncOptions = {
-  // imports: [ConfigModule],
+  imports: [ConfigModule],
   useFactory: (config: ConfigService) => ({
     token: config.getOrThrow<string>('BOT_TOKEN'),
-    // useWebhook: isProd(config),
+    useWebhook: isProd(config),
     launchOptions: {
       webhook: {
         domain: config.getOrThrow<string>('BOT_WEBHOOK_DOMAIN'),
