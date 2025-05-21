@@ -6,7 +6,7 @@ export const telegramConfig: GrammyModuleAsyncOptions = {
   // imports: [ConfigModule],
   useFactory: (config: ConfigService) => ({
     token: config.getOrThrow<string>('BOT_TOKEN'),
-    useWebhook: isProd(config),
+    // useWebhook: isProd(config),
     launchOptions: {
       webhook: {
         domain: config.getOrThrow<string>('BOT_WEBHOOK_DOMAIN'),
