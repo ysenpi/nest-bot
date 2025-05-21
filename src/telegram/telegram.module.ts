@@ -3,12 +3,11 @@ import { ConfigService } from '@nestjs/config'
 import { InjectBot, NestjsGrammyModule } from '@grammyjs/nestjs'
 import { Bot, Context, webhookCallback } from 'grammy'
 import { TelegramUpdate } from './telegram.update'
-import { TelegramService } from './telegram.service'
 import { telegramConfig } from 'src/config/telegram.config'
 
 @Module({
   imports: [NestjsGrammyModule.forRootAsync(telegramConfig)],
-  providers: [TelegramUpdate, TelegramService]
+  providers: [TelegramUpdate]
 })
 export class TelegramModule implements NestModule {
   constructor(
